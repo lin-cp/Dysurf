@@ -133,12 +133,10 @@ program DYSURF
         write(string, *) int(temps(ii))
         sqe_file = "SQEBIN_"//trim(adjustl(string))//"K"
         sqe_file = trim(sqe_file)//".dat"
-        write(string, *) nqk*nql*ne
+        write(string, *) nqh*nqk*nql*ne
         fmtstring = "("//trim(adjustl(string))//"*(E24.16,x))"
         open(1, file=sqe_file, status="replace")
-        do jj = 1, nqh
-           write(1, fmtstring) reshape(sqebin(:,:,:,jj,ii),(/nqk*nql*ne/))
-        end do
+        write(1, fmtstring) reshape(sqebin(:,:,:,:,ii),(/nqh*nqk*nql*ne/))
         close(1)
      end do
   else
